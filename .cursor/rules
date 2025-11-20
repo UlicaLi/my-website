@@ -1,0 +1,17 @@
+You are designing front-end UI. Follow a responsive, mobile-first approach:
+
+- Ensure layouts reflow from phone to desktop without horizontal scroll.
+
+- Use Flexbox/Grid, fluid units (%, rem), and shared breakpoints: 640, 768, 1024, 1280.
+
+- Include meta viewport and support system text scaling and zoom.
+
+- Make interactive targets at least 44×44px; provide visible focus states.
+
+- Optimize for mobile performance: defer non-critical resources; lazy-load images; use WebP/AVIF.
+
+- Meet WCAG AA contrast; use semantic HTML and keyboard accessible interactions.
+
+- Test at 375px, 768px, 1280px; fix overflow and clipped content.
+
+- Prefer Tailwind responsive utilities (sm/md/lg/xl) when applicable; support dark mode.

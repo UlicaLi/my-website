@@ -8,9 +8,6 @@
       
       <!-- 烟花组件 (z-index 最高) -->
       <MouseFireworks />
-      
-      <!-- 弹幕墙组件 -->
-      <DanmakuWall />
 
       <!-- 导航栏 -->
       <nav class="fixed top-0 w-full p-6 flex justify-between items-center z-40 backdrop-blur-md bg-white/30 dark:bg-slate-900/30 border-b border-gray-200/20 dark:border-white/5">
@@ -36,14 +33,14 @@
             Current State: Researching Transformer Models
           </div>
           
-          <h1 class="text-6xl md:text-8xl font-black tracking-tight">
+          <!-- <h1 class="text-6xl md:text-8xl font-black tracking-tight">
             Building the <br />
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 dark:from-ai-primary dark:via-purple-400 dark:to-ai-accent">
               INTELLIGENCE
             </span>
             <br />
             of Tomorrow
-          </h1>
+          </h1> -->
 
           <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl">
             我是 <span class="font-bold text-slate-900 dark:text-white">Ulica</span>，一名专注于Egocentric的研究生。
@@ -58,6 +55,9 @@
               联系我
             </button>
           </div>
+
+          <!-- 弹幕墙组件 -->
+          <DanmakuWall />
         </div>
 
         <!-- Tech Stack (Glass Cards) -->

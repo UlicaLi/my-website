@@ -57,7 +57,7 @@
           </div>
 
           <!-- 弹幕墙组件 -->
-          <DanmakuWall />
+          <TagCloud />
         </div>
 
         <!-- Tech Stack (Glass Cards) -->
@@ -111,7 +111,7 @@ import { ref, onMounted } from 'vue';
 import MouseFireworks from './components/MouseFireworks.vue';
 import GithubGraph from './components/GithubGraph.vue';
 import NeuralBackground from './components/NeuralBackground.vue';
-import DanmakuWall from './components/DanmakuWall.vue';
+import TagCloud from './components/TagCloud.vue';
 
 const isDark = ref(true);
 

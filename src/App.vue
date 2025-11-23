@@ -82,7 +82,7 @@
             <span class="w-2 h-8 bg-ai-accent rounded-full"></span>
             Code Frequency
           </h2>
-          <GithubGraph />
+          <GithubGraph username="UlicaLi" />
         </div>
 
         <!-- 绘画与旅行 (Placeholder) -->

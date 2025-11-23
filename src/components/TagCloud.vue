@@ -48,24 +48,24 @@ const pcItems = [
 // ==========================================
 const mobileItems = [
   // --- Row 0 ---
-  { text: '我的简历', targetId: 'about', size: 1.8, color: '#60A5FA', top: 15, left: 10, weight: 'bold' }, // Col 0
-  { text: '我的项目', targetId: 'projects', size: 1.5, color: '#A78BFA', top: 45, left: 5, weight: '600' },  // Col 1
-  { text: '我的绘画', targetId: 'painting', size: 1.4, color: '#F472B6', top: 20, right: 5, weight: '500' }, // Col 2 (靠右)
+  { text: '我的简历', targetId: 'about', size: 2.0, color: '#60A5FA', top: 40, left: 30, weight: 'bold' }, // Col 0
+  { text: '我的项目', targetId: 'projects', size: 4.0, color: '#A78BFA', top: 45, left: 5, weight: '600' },  // Col 1
+  { text: '我的绘画', targetId: 'painting', size: 2.4, color: '#F472B6', top: 30, right: 45, weight: '500' }, // Col 2 (靠右)
 
   // --- Row 1 ---
-  { text: '旅行日记', targetId: 'travel', size: 0.9, color: '#FB923C', top: 10, left: 15, weight: 'normal' }, // Col 0
-  { text: 'Github', targetId: 'github', size: 0.9, color: '#babec7', top: 50, left: 20, weight: '300' },   // Col 1
-  { text: 'AI Research', targetId: 'projects', size: 1.6, color: '#F87171', top: 15, right: 10, weight: 'bold' }, // Col 2
+  { text: '旅行日记', targetId: 'travel', size: 2.0, color: '#FB923C', top: 10, left: 15, weight: 'normal' }, // Col 0
+  { text: '我的简历', targetId: 'github', size: 5.0, color: '#0e172a', top: 30, left: 10, weight: 'bold' },   // Col 1
+  { text: 'AI Research', targetId: 'projects', size: 2.6, color: '#F87171', top: 15, right: 10, weight: 'bold' }, // Col 2
 
   // --- Row 2 ---
-  { text: 'Photo', targetId: 'painting', size: 1.4, color: '#FBBF24', top: 20, left: 10, weight: '600' },   // Col 0
-  { text: 'Tech Stack', targetId: 'about', size: 1.3, color: '#A78BFA', top: 60, left: 5, weight: '500' },   // Col 1
-  { text: '我的论文', targetId: 'projects', size: 1.3, color: '#818CF8', top: 25, right: 15, weight: 'bold' }, // Col 2
+  { text: 'Photo', targetId: 'painting', size: 2.4, color: '#FBBF24', top: 20, left: 10, weight: '600' },   // Col 0
+  { text: 'Tech Stack', targetId: 'about', size: 4.0, color: '#239b70', top: 30, left: 5, weight: '500' },   // Col 1
+  { text: '我的论文', targetId: 'projects', size: 2.4, color: '#818CF8', top: 25, right: 15, weight: 'bold' }, // Col 2
 
   // --- Row 3 ---
-  { text: '联系我', targetId: 'about', size: 1.2, color: '#60A5FA', top: 10, left: 20, weight: 'normal' },     // Col 0
-  { text: '占位符', targetId: 'projects', size: 1.1, color: '#818CF8', top: 40, left: 15, weight: '300' },   // Col 1
-  { text: '嘿嘿嘿', targetId: 'projects', size: 1.0, color: '#FB923C', top: 20, right: 5, weight: 'normal' },   // Col 2
+  { text: '联系我', targetId: 'about', size: 2.2, color: '#60A5FA', top: 10, left: 20, weight: 'normal' },     // Col 0
+  { text: '占位符', targetId: 'projects', size: 2.1, color: '#818CF8', top: 40, left: 15, weight: '300' },   // Col 1
+  { text: '嘿嘿嘿', targetId: 'projects', size: 2.0, color: '#FB923C', top: 20, right: 45, weight: 'normal' },   // Col 2
 ];
 
 const danmakuItems = ref([]);

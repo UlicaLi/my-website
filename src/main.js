@@ -1,8 +1,11 @@
-// src/main.js
+import './index.css'
+
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
 
-// 👇 必须添加这一行！没有这一行，Tailwind 就不会工作
-import './index.css' 
+const app = createApp(App)
 
-createApp(App).mount('#app')
+app.use(router)
+
+app.mount('#app')

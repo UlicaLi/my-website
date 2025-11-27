@@ -32,7 +32,7 @@ const pcItems = [
   { text: 'Github提交', targetId: 'github', size: 1.0, color: '#babec7', top: 30, left: 50, weight: '300' }, // Col 0
   { text: '我的简历', targetId: 'projects', size: 2.8, color: '#0e172a', top: 10, left: 50, weight: '900' }, // Col 1
   { text: '我的项目', targetId: 'painting', size: 2.0, color: '#5850e6', top: 40, left: 30, weight: 'bold' }, // Col 2
-  { text: 'Tech Stack', targetId: 'about', size: 1.5, color: '#A78BFA', top: 20, right: 30, weight: '500' }, // Col 3 (靠右)
+  { text: 'Tech Stack', targetId: 'tech', size: 1.5, color: '#A78BFA', top: 20, right: 30, weight: '500' }, // Col 3 (靠右)
 
   // --- Row 2 ---
   { text: '我的论文', targetId: 'projects', size: 1.2, color: '#7993e7', top: 20, left: 25, weight: 'normal' }, // Col 0
@@ -59,7 +59,7 @@ const mobileItems = [
 
   // --- Row 2 ---
   { text: 'Photo', targetId: 'painting', size: 2.4, color: '#FBBF24', top: 20, left: 10, weight: '600' },   // Col 0
-  { text: 'Tech Stack', targetId: 'about', size: 4.0, color: '#239b70', top: 30, left: 5, weight: '500' },   // Col 1
+  { text: 'Tech Stack', targetId: 'tech', size: 4.0, color: '#239b70', top: 30, left: 5, weight: '500' },   // Col 1
   { text: '我的论文', targetId: 'projects', size: 2.4, color: '#818CF8', top: 25, right: 15, weight: 'bold' }, // Col 2
 
   // --- Row 3 ---

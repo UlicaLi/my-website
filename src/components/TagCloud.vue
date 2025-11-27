@@ -14,14 +14,30 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+
+interface TagItem {
+    text: string;
+    targetId: string;
+    size: number;
+    color: string;
+    top: number;
+    left?: number;
+    right?: number;
+    weight: string;
+}
+
+interface DisplayItem extends TagItem {
+    calcTop: number;
+    calcLeft?: number;
+    calcRight?: number;
+}
 
 // ==========================================
 // 1. PC 端数据配置 (屏幕 >= 768px)
-// 布局逻辑：3行 x 4列 = 12个格子
 // ==========================================
-const pcItems = [
+const pcItems: TagItem[] = [
   // --- Row 0 ---
   { text: '我的简历', targetId: 'about', size: 1.2, color: '#d29774', top: 10, left: 20, weight: 'normal' }, // Col 0
   { text: 'Github Commits', targetId: 'projects', size: 1.8, color: '#239b70', top: 40, left: 10, weight: '800' }, // Col 1
@@ -43,10 +59,8 @@ const pcItems = [
 
 // ==========================================
 // 2. 移动端数据配置 (屏幕 < 768px)
-// 布局逻辑：4行 x 3列 = 12个格子
-// 提示：移动端屏幕窄，size 建议稍微调小，left/right 不要太大防止溢出
 // ==========================================
-const mobileItems = [
+const mobileItems: TagItem[] = [
   // --- Row 0 ---
   { text: '我的简历', targetId: 'about', size: 2.0, color: '#60A5FA', top: 40, left: 30, weight: 'bold' }, // Col 0
   { text: '我的项目', targetId: 'projects', size: 4.0, color: '#A78BFA', top: 45, left: 5, weight: '600' },  // Col 1
@@ -68,7 +82,7 @@ const mobileItems = [
   { text: '嘿嘿嘿', targetId: 'projects', size: 2.0, color: '#FB923C', top: 20, right: 45, weight: 'normal' },   // Col 2
 ];
 
-const danmakuItems = ref([]);
+const danmakuItems = ref<DisplayItem[]>([]);
 
 onMounted(() => {
   initDanmaku();
@@ -101,7 +115,7 @@ const initDanmaku = () => {
     // 计算绝对 Top (%)
     const finalTop = (row * cellHeightPercent) + (item.top * cellHeightPercent / 100);
     
-    let finalLeft, finalRight;
+    let finalLeft: number | undefined, finalRight: number | undefined;
 
     // 计算绝对 Left 或 Right (%)
     if (item.right !== undefined) {
@@ -124,7 +138,7 @@ const initDanmaku = () => {
   });
 };
 
-const getItemStyle = (item) => {
+const getItemStyle = (item: DisplayItem) => {
   return {
     top: `${item.calcTop}%`,
     left: item.calcRight !== undefined ? 'auto' : `${item.calcLeft}%`,
@@ -144,7 +158,7 @@ const getItemStyle = (item) => {
   };
 };
 
-const scrollToSection = (id) => {
+const scrollToSection = (id: string) => {
   const element = document.getElementById(id);
   if (element) {
     element.scrollIntoView({ behavior: 'smooth' });

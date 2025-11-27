@@ -6,7 +6,7 @@
         <span class="text-ai-primary">&lt;</span>Welcome<span class="text-ai-primary">/&gt;</span>
       </div>
       <button 
-        @click="$emit('toggle-theme')"
+        @click="toggleTheme()"
         class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-white/10 transition-all transform hover:rotate-12"
       >
         <!-- 简单的 SVG 图标切换 -->
@@ -104,11 +104,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import GithubGraph from '../components/GithubGraph.vue';
 import TagCloud from '../components/TagCloud.vue';
+import { useDark, useToggle } from '@vueuse/core';
 
-defineProps({
-  isDark: Boolean
-});
+const isDark = useDark();
+const toggleTheme = useToggle(isDark);
 </script>

@@ -73,12 +73,13 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import MarkdownIt from 'markdown-it';
 import tm from 'markdown-it-texmath';
 import katex from 'katex';
 import hljs from 'highlight.js';
+import type { BlogPost } from '@/types';
 
 // Import styles
 import 'katex/dist/katex.min.css';
@@ -88,7 +89,7 @@ const md = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true,
-  highlight: function (str, lang) {
+  highlight: function (str: string, lang: string) {
     if (lang && hljs.getLanguage(lang)) {
       try {
         return `<pre class="hljs p-4 rounded-lg text-sm overflow-x-auto"><code>${ 
@@ -108,20 +109,20 @@ md.use(tm, {
   katexOptions: { macros: { "\RR": "\mathbb{R}" } }
 });
 
-const fileList = ref([]);
-const selectedFile = ref(null);
-const rawContent = ref('');
-const loadingList = ref(true);
-const loadingContent = ref(false);
-const errorList = ref(null);
-const errorContent = ref(null);
+const fileList = ref<BlogPost[]>([]);
+const selectedFile = ref<BlogPost | null>(null);
+const rawContent = ref<string>('');
+const loadingList = ref<boolean>(true);
+const loadingContent = ref<boolean>(false);
+const errorList = ref<string | null>(null);
+const errorContent = ref<string | null>(null);
 
 const renderedContent = computed(() => {
   if (!rawContent.value) return '';
   return md.render(rawContent.value);
 });
 
-const formatDate = (dateStr) => {
+const formatDate = (dateStr: string) => {
   return new Date(dateStr).toLocaleDateString(undefined, { 
     year: 'numeric', 
     month: 'short', 
@@ -135,9 +136,9 @@ const fetchManifest = async () => {
   try {
     const res = await fetch('/posts/manifest.json');
     if (!res.ok) throw new Error('Failed to load manifest');
-    const data = await res.json();
+    const data: BlogPost[] = await res.json();
     // Sort by date desc
-    fileList.value = data.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+    fileList.value = data.sort((a, b) => new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime());
     
     // Auto-select first file if available
     if (fileList.value.length > 0) {
@@ -151,7 +152,7 @@ const fetchManifest = async () => {
   }
 };
 
-const selectFile = async (file) => {
+const selectFile = async (file: BlogPost) => {
   if (selectedFile.value?.fileName === file.fileName) return;
   
   selectedFile.value = file;

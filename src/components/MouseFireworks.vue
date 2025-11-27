@@ -5,13 +5,13 @@
     ></canvas>
   </template>
   
-  <script setup>
+  <script setup lang="ts">
   import { onMounted, onUnmounted, ref } from 'vue';
   
-  const canvasRef = ref(null);
-  let ctx = null;
-  let particles = [];
-  let animationFrameId = null;
+  const canvasRef = ref<HTMLCanvasElement | null>(null);
+  let ctx: CanvasRenderingContext2D | null = null;
+  let particles: Particle[] = [];
+  let animationFrameId: number | null = null;
   
   // 赛博朋克 + 烟花配色
   const colors = [
@@ -24,7 +24,16 @@
   ];
   
   class Particle {
-    constructor(x, y) {
+    x: number;
+    y: number;
+    size: number;
+    vx: number;
+    vy: number;
+    life: number;
+    decay: number;
+    color: string;
+
+    constructor(x: number, y: number) {
       this.x = x;
       this.y = y;
       // 粒子大小：随机大小，制造层次感
@@ -59,7 +68,7 @@
       }
     }
   
-    draw(context) {
+    draw(context: CanvasRenderingContext2D) {
       context.save();
       
       // 关键：使用 lighter 混合模式，让重叠的粒子发光变白
@@ -77,7 +86,7 @@
   }
   
   // 核心逻辑：每次鼠标移动添加粒子
-  const addParticles = (x, y) => {
+  const addParticles = (x: number, y: number) => {
     // 每次移动产生 3-5 个粒子，既不卡顿又能形成致密拖尾
     const count = 4; 
     for (let i = 0; i < count; i++) {
@@ -114,7 +123,7 @@
     animationFrameId = requestAnimationFrame(animate);
   };
   
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent) => {
     // 不再节流，直接跟随
     addParticles(e.clientX, e.clientY);
   };
@@ -128,18 +137,22 @@
   
   onMounted(() => {
     const canvas = canvasRef.value;
-    ctx = canvas.getContext('2d');
-    
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    animate();
+    if (canvas) {
+        ctx = canvas.getContext('2d');
+        
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('mousemove', handleMouseMove);
+        
+        animate();
+    }
   });
   
   onUnmounted(() => {
     window.removeEventListener('resize', handleResize);
     window.removeEventListener('mousemove', handleMouseMove);
-    cancelAnimationFrame(animationFrameId);
+    if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+    }
   });
   </script>

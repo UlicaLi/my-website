@@ -47,23 +47,26 @@
     </div>
   </template>
   
-  <script setup>
+  <script setup lang="ts">
   import { ref, onMounted, watch } from 'vue';
   
-  const props = defineProps({
-    username: {
-        type: String,
-        default: 'torvalds'
-    }
-  });
+  const props = defineProps<{
+    username: string;
+  }>();
 
-  const weeks = ref([]);
-  const loading = ref(true);
-  const error = ref(null);
-  const totalContributions = ref(0);
+  interface ContributionDay {
+      date: string;
+      count: number;
+      level: number;
+  }
+
+  const weeks = ref<ContributionDay[][]>([]);
+  const loading = ref<boolean>(true);
+  const error = ref<string | null>(null);
+  const totalContributions = ref<number>(0);
   
   // Helper to format date
-  const formatDate = (dateStr) => {
+  const formatDate = (dateStr: string) => {
       if (!dateStr) return '';
       return new Date(dateStr).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
   };
@@ -87,7 +90,7 @@
              totalContributions.value = data.total.lastYear;
           } else {
              // Fallback sum
-             totalContributions.value = data.contributions.reduce((acc, day) => acc + day.count, 0);
+             totalContributions.value = data.contributions.reduce((acc: number, day: any) => acc + day.count, 0);
           }
           
           processData(data.contributions);
@@ -99,9 +102,9 @@
       }
   };
 
-  const processData = (contributions) => {
-      const processedWeeks = [];
-      let currentWeek = [];
+  const processData = (contributions: any[]) => {
+      const processedWeeks: ContributionDay[][] = [];
+      let currentWeek: ContributionDay[] = [];
       
       contributions.forEach((day, index) => {
           let level = day.level;
@@ -140,7 +143,7 @@
       fetchContributions();
   });
   
-  const getColorClass = (level) => {
+  const getColorClass = (level: number) => {
     switch (level) {
       case 1: return 'bg-green-200 dark:bg-green-900/60';
       case 2: return 'bg-green-400 dark:bg-green-700';

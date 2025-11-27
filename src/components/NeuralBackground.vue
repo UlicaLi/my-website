@@ -5,13 +5,13 @@
     ></canvas>
   </template>
   
-  <script setup>
-  import { onMounted, onUnmounted, ref, watch } from 'vue';
+  <script setup lang="ts">
+  import { onMounted, onUnmounted, ref } from 'vue';
+  import { useDark } from '@vueuse/core';
+
+  const isDark = useDark();
   
-  const canvasRef = ref(null);
-  const props = defineProps({
-    isDark: Boolean // 接收父组件的主题状态
-  });
+  const canvasRef = ref<HTMLCanvasElement | null>(null);
   
   // 配置参数
   const config = {
@@ -20,11 +20,11 @@
     speed: 0.5, // 粒子运动速度
   };
   
-  let ctx = null;
+  let ctx: CanvasRenderingContext2D | null = null;
   let width = 0;
   let height = 0;
-  let particles = [];
-  let animationFrameId = null;
+  let particles: Particle[] = [];
+  let animationFrameId: number | null = null;
   
   // 定义颜色数组：红、黄、绿、蓝、紫、青、橙等
   const colors = [
@@ -37,6 +37,13 @@
   
   // 粒子类
   class Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+    color: { r: number, g: number, b: number };
+
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
@@ -58,10 +65,11 @@
     }
   
     draw() {
+      if (!ctx) return;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       // 使用粒子的随机颜色，根据主题调整透明度
-      const opacity = props.isDark ? 0.6 : 0.5;
+      const opacity = isDark.value ? 0.6 : 0.5;
       ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${opacity})`;
       ctx.fill();
     }
@@ -77,6 +85,7 @@
   };
   
   const drawLines = () => {
+    if (!ctx) return;
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
@@ -91,7 +100,7 @@
           ctx.lineTo(particles[j].x, particles[j].y);
           
           // 线条颜色逻辑
-          if (props.isDark) {
+          if (isDark.value) {
                // 黑夜模式：赛博紫 -> 青色渐变或者是纯色
                ctx.strokeStyle = `rgba(139, 92, 246, ${opacity * 0.4})`; // ai-primary
           } else {
@@ -130,21 +139,18 @@
   };
   
   onMounted(() => {
-    ctx = canvasRef.value.getContext('2d');
-    handleResize();
-    animate();
-    window.addEventListener('resize', handleResize);
+    if (canvasRef.value) {
+        ctx = canvasRef.value.getContext('2d');
+        handleResize();
+        animate();
+        window.addEventListener('resize', handleResize);
+    }
   });
   
   onUnmounted(() => {
     window.removeEventListener('resize', handleResize);
-    cancelAnimationFrame(animationFrameId);
-  });
-  
-  // 监听主题变化，虽然 render 循环里已经处理了颜色，
-  // 但为了确保平滑过渡或触发重绘，可以保留 watcher（可选）
-  watch(() => props.isDark, () => {
-      // 可以在这里做一些颜色切换的过渡效果，
-      // 但目前的 requestAnimationFrame 会自动在下一帧捕捉到 props 的变化
+    if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+    }
   });
   </script>
